@@ -1,3 +1,5 @@
+
+----------------------mybatis--------------------
 server:
   port: 8001
 
@@ -22,3 +24,38 @@ spring:
       max-total: 5                                          # 最大连接数
       max-wait-millis: 200                                  # 等待连接获取的最大超时时间
 #以上mybatis整合
+----------------------mybatis--stop------------------
+
+
+------------------eureka-----------------
+#server
+
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: eureka-server   #eureka实例的主机名
+  client:
+    register-with-eureka: false #不把自己注册到eureka上
+    fetch-registry: false  #不从eureka上来获取服务的注册信息
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+#生产者
+server.port=8001
+spring.application.name=provider-ticket
+#注册服务的时候使用服务的ip地址
+eureka.instance.prefer-ip-address=true
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
+
+#消费者
+server.port=8003
+spring.application.name=consumer-user
+#注册服务的时候使用服务的ip地址
+eureka.instance.prefer-ip-address=true
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
+
+------------------eureka------stop-----------
+
+
+
